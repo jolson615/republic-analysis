@@ -3,13 +3,13 @@
   <head>
     <meta charset="utf-8">
     <title>Results</title>
-    <link rel="stylesheet" href="css/style.css">
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/style.css">
   </head>
   <body>
     <div class="container">
@@ -17,7 +17,7 @@
 
       </div>
       <div class="row">
-        <h2 class="text-center">Grade Level Performance</h2>
+        <h1 class="text-center">Grade Level Performance</h1>
       </div>
       <div class="row buffer-sm">
 
@@ -99,76 +99,40 @@
               <%end%>
             </tbody>
           </table>
-
-          <!-- <p>
-            <h3>Your test examined the following standards:</h3>
-            <ul class="list-unstyled">
-            <%@processed_data.standards.each do |standard|%>
-             <li><%=standard%></li>
-            <%end%>
-            </ul>
-          </p> -->
-          <!-- <p>
-            <h3>Your have students in the following advisories:</h3>
-            <ul class="list-unstyled">
-            <%@processed_data.advisories.each do |advisory|%>
-             <li><%=advisory.name%></li>
-            <%end%>
-            </ul>
-          </p> -->
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-8 col-md-offset-2" id="validator-box">
+          <h3 class="text-center">Use the following data to ensure accuracy</h3>
           <p>
-            <h3>You have <%=@processed_data.student_count%> students </h3>
-          </p>
-          <p>
-            <h3>You tested <%=@processed_data.standards.count%> standards </h3>
-          </p>
-          <!-- <p>
-            The correct answers were <%=@processed_data.answer_key%>
-          </p> -->
-          <p>
-            <%=@processed_data.multiple_standards?%>
-          </p>
-          <!-- <p>
-            <h3>Ruby accuracy check</h3>
-            <ul class="list-unstyled">
-              <li><%=@processed_data.students.sample.validate_math%></li>
-              <li><%=@processed_data.students.sample.validate_math%></li>
-              <li><%=@processed_data.students.sample.validate_math%></li>
-            </ul>
-          </p> -->
-          <p>
-            <h3>Advisory counts</h3>
+            <h4>Advisory counts</h4>
             <ul class="list-unstyled">
               <%@processed_data.advisories.each do |advisory|%>
                 <li><%=advisory.name%>: <%=advisory.students.count%> students</li>
               <%end%>
             </ul>
           </p>
-          <!-- <ul>
-            <%@processed_data.students.each do |student|%>
-              <li><%=student.name%> scored <%=student.score_array%></li>
-            <%end%>
-          </ul> -->
           <p>
-            <h3>Standards average</h3>
-            <ul>
-              <%@processed_data.advisories.each do |advisory|%>
-                <li><%=advisory.name%> scored <%=advisory.standards_whole_number_average%></li>
-              <%end%>
-            </ul>
+            <h4>We counted <%=@processed_data.standards.count%> standards </h4>
           </p>
           <p>
-            <h3>Grade level performance</h3>
-            <%@processed_data.advisories.each do |advisory|%>
-              <h4><%=advisory.name%></h4>
-              <ul>
-                <%advisory.percent_grade_level.each do |status, percentage|%>
-                  <li><%=percentage%> of students performed <%=status%> grade level</li>
-                <%end%>
-              </ul>
-            <%end%>
+            <%=@processed_data.multiple_standards?%>
+          </p>
+          <p id=disclaimer>
+            If any of the above data seems incorrect, return to the landing page and try again. If the information still doesn't match up, email JOlson@republiccharterschools.org. If possible, attach the data you're working with and include a screenshot of the erroneous results.
           </p>
         </div>
+      </div>
+      <div class="row buffer-sm">
+
+      </div>
+      <div class="row">
+        <footer class="text-center" id="footer">
+          Created by Jeff Olson for RePublic Schools, July 2016.
+        </footer>
+      </div>
+      <div class="row buffer-sm">
+
       </div>
     </div>
   </body>

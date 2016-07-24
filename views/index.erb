@@ -3,7 +3,6 @@
   <head>
     <meta charset="utf-8">
     <title>Analyze Student Data</title>
-    <link rel="stylesheet" href="css/style.css" charset="utf-8">
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
@@ -12,10 +11,11 @@
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/style.css" charset="utf-8">
   </head>
   <body>
     <div class="container">
-      <div class="row buffer">
+      <div class="row buffer-md">
 
       </div>
       <div class="row text-center">
@@ -23,20 +23,34 @@
           <h1>Input raw data in the box below</h1>
         </div>
       </div>
+      <div class="row buffer-sm">
+
+      </div>
       <div class="row">
         <div class="">
           <form action="/results" method="post">
-            <ul class="list-unstyled col-md-4 col-md-offset-4">
+            <ul class="list-unstyled col-md-10 col-md-offset-1">
               <!-- <li><label for="questions">How many questions?</label></li>
               <li><input type="number" name="questions"></li>
               <li><label for="students">How many students?</label></li>
               <li><input type="number" name="students"></li> -->
               <li><label for="data">Input raw data here:</label></li>
-              <li><textarea name="data" rows="4" cols="50"></textarea></li>
+              <li><textarea name="data" rows="10" id="data-input"></textarea></li>
               <li><input type="submit"></li>
             </ul>
           </form>
         </div>
+      </div>
+      <div class="row buffer-sm">
+
+      </div>
+      <div class="row">
+        <footer class="text-center" id="footer">
+          Created by Jeff Olson for RePublic Schools, July 2016.
+        </footer>
+      </div>
+      <div class="row buffer-sm">
+
       </div>
     </div>
   </body>

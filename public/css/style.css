@@ -4,9 +4,29 @@ Republic BLUE: rgba(15, 36, 61, 1);
 
 */
 @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro);
+@import url(https://fonts.googleapis.com/css?family=Quicksand);
 
-* {
+h1, h2, h3, h4, h5, table, li, p, .text-center {
   font-family: 'Source Sans Pro', sans-serif;
+}
+
+h1 {
+  font-weight: bolder;
+}
+
+#footer {
+  font-family: 'Quicksand', sans-serif;
+}
+
+#disclaimer {
+  font-family: 'Quicksand', sans-serif;
+  font-weight: lighter;
+  font-size: 0.9em;
+}
+
+#data-input {
+  font-family: sans-serif;
+  width: 100%;
 }
 
 .buffer-md {
