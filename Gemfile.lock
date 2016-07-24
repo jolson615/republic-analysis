@@ -1,11 +1,33 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    addressable (2.4.0)
     builder (3.2.2)
     coderay (1.1.0)
+    excon (0.51.0)
+    heroku (3.43.5)
+      heroku-api (= 0.4.2)
+      launchy (= 2.4.3)
+      multi_json (= 1.11.2)
+      net-ssh (= 2.9.2)
+      net-ssh-gateway (= 1.2.0)
+      netrc (= 0.10.3)
+      rest-client (= 1.6.8)
+      rubyzip (= 1.1.7)
+    heroku-api (0.4.2)
+      excon (~> 0.45)
+      multi_json (~> 1.8)
+    json (1.8.3)
     jwt (1.5.0)
+    launchy (2.4.3)
+      addressable (~> 2.3)
     method_source (0.8.2)
+    mime-types (1.25.1)
     multi_json (1.11.2)
+    net-ssh (2.9.2)
+    net-ssh-gateway (1.2.0)
+      net-ssh (>= 2.6.5)
+    netrc (0.10.3)
     pry (0.10.1)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -13,6 +35,12 @@ GEM
     rack (1.5.2)
     rack-protection (1.5.3)
       rack
+    rdoc (4.2.2)
+      json (~> 1.4)
+    rest-client (1.6.8)
+      mime-types (~> 1.16)
+      rdoc (>= 2.4.2)
+    rubyzip (1.1.7)
     shotgun (0.9)
       rack (>= 1.0)
     sinatra (1.4.5)
@@ -30,6 +58,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  heroku
   pry
   shotgun
   sinatra
