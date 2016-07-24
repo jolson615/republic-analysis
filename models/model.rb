@@ -132,10 +132,11 @@ class Analysis
         @advisories.push(row[2])
       end
     end
+    @advisory_list = []
     @advisories.each do |advisory|
-      Advisory.new(advisory)
+      @advisory_list.push(Advisory.new(advisory))
     end
-    @advisories = Advisory.list
+    @advisories = @advisory_list
   end
 
   def check_answers(student)
@@ -173,8 +174,8 @@ class Analysis
   end
 
   def sort_students_into_advisories
-    Advisory.list.each do |advisory|
-      Student.list.each do |student|
+    @advisories.each do |advisory|
+      @students.each do |student|
         if student.advisory == advisory.name
           advisory.students.push(student)
         end
