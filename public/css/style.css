@@ -1,0 +1,38 @@
+/*
+Republic RED: rgba(227, 53, 39, 1);
+Republic BLUE: rgba(15, 36, 61, 1);
+
+*/
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro);
+
+* {
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+.buffer-md {
+  height: 80px;
+}
+
+.buffer-sm {
+  height: 40px;
+}
+
+.first-col {
+  background-color: #F5F5F5;
+}
+
+.table-hover>tbody>tr:hover>td {
+  background-color: rgba(15, 36, 61, 0.8);
+  color: white;
+  font-weight: bold;
+}
+
+.table-hover>tbody>tr:hover>td.first-col {
+  background-color: rgba(15, 36, 61, 1);
+  color: white;
+  font-weight: bold;
+}
+
+#testrow {
+  background-color: rgba(227, 53, 39, 1);
+}

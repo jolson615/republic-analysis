@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Results</title>
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row buffer-md">
+
+      </div>
+      <div class="row">
+        <h2 class="text-center">Grade Level Performance</h2>
+      </div>
+      <div class="row buffer-sm">
+
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <table class="table table-bordered table-hover">
+            <thead>
+              <tr class="active">
+                <th>Metric</th>
+                <%@processed_data.advisories.each do |advisory|%>
+                <th><%=advisory.name%></th>
+                <%end%>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="first-col">Total Mastery</td>
+                <%@processed_data.advisories.each do |advisory|%>
+                <td><%=advisory.overall_average%>%</td>
+                <%end%>
+              </tr>
+              <tr>
+                <td class="first-col">% Above Grade Level</td>
+                <%@processed_data.advisories.each do |advisory|%>
+                <td><%=advisory.percent_grade_level[:above]%></td>
+                <%end%>
+              </tr>
+              <tr>
+                <td class="first-col">% At Grade Level</td>
+                <%@processed_data.advisories.each do |advisory|%>
+                <td><%=advisory.percent_grade_level[:at]%></td>
+                <%end%>
+              </tr>
+              <tr>
+                <td class="first-col">% Below Grade Level</td>
+                <%@processed_data.advisories.each do |advisory|%>
+                <td><%=advisory.percent_grade_level[:below]%></td>
+                <%end%>
+              </tr>
+              <tr>
+                <td class="first-col">% Between 59 and 69</td>
+                <%@processed_data.advisories.each do |advisory|%>
+                <td><%=advisory.bubble_percent%> %</td>
+                <%end%>
+              </tr>
+              <tr>
+                <td class="first-col">Names of Bubble Students</td>
+                <%@processed_data.advisories.each do |advisory|%>
+                  <td>
+                    <ul class="list-unstyled">
+                  <%advisory.bubble_students.each do |student|%>
+                      <li><%=student.name%></li>
+                  <%end%>
+                    </ul>
+                  </td>
+                <%end%>
+              </tr>
+            </tbody>
+          </table>
+          <!-- End of table 1. -->
+          <table class="table table-bordered table-hover">
+            <thead>
+              <tr class="active">
+                <th>Objective</th>
+                <%@processed_data.advisories.each do |advisory|%>
+                <th><%=advisory.name%></th>
+                <%end%>
+              </tr>
+            </thead>
+            <tbody>
+              <%@processed_data.standards.each do |standard|%>
+              <tr>
+                <td class="first-col" width="40%"><%=standard%></td>
+                <%@processed_data.advisories.each do |advisory|%>
+                <td><%=advisory.standards_whole_number_average[standard]%></td>
+                <%end%>
+              </tr>
+              <%end%>
+            </tbody>
+          </table>
+
+          <!-- <p>
+            <h3>Your test examined the following standards:</h3>
+            <ul class="list-unstyled">
+            <%@processed_data.standards.each do |standard|%>
+             <li><%=standard%></li>
+            <%end%>
+            </ul>
+          </p> -->
+          <!-- <p>
+            <h3>Your have students in the following advisories:</h3>
+            <ul class="list-unstyled">
+            <%@processed_data.advisories.each do |advisory|%>
+             <li><%=advisory.name%></li>
+            <%end%>
+            </ul>
+          </p> -->
+          <p>
+            <h3>You have <%=@processed_data.student_count%> students </h3>
+          </p>
+          <p>
+            <h3>You tested <%=@processed_data.standards.count%> standards </h3>
+          </p>
+          <!-- <p>
+            The correct answers were <%=@processed_data.answer_key%>
+          </p> -->
+          <p>
+            <%=@processed_data.multiple_standards?%>
+          </p>
+          <!-- <p>
+            <h3>Ruby accuracy check</h3>
+            <ul class="list-unstyled">
+              <li><%=@processed_data.students.sample.validate_math%></li>
+              <li><%=@processed_data.students.sample.validate_math%></li>
+              <li><%=@processed_data.students.sample.validate_math%></li>
+            </ul>
+          </p> -->
+          <p>
+            <h3>Advisory counts</h3>
+            <ul class="list-unstyled">
+              <%@processed_data.advisories.each do |advisory|%>
+                <li><%=advisory.name%>: <%=advisory.students.count%> students</li>
+              <%end%>
+            </ul>
+          </p>
+          <!-- <ul>
+            <%@processed_data.students.each do |student|%>
+              <li><%=student.name%> scored <%=student.score_array%></li>
+            <%end%>
+          </ul> -->
+          <p>
+            <h3>Standards average</h3>
+            <ul>
+              <%@processed_data.advisories.each do |advisory|%>
+                <li><%=advisory.name%> scored <%=advisory.standards_whole_number_average%></li>
+              <%end%>
+            </ul>
+          </p>
+          <p>
+            <h3>Grade level performance</h3>
+            <%@processed_data.advisories.each do |advisory|%>
+              <h4><%=advisory.name%></h4>
+              <ul>
+                <%advisory.percent_grade_level.each do |status, percentage|%>
+                  <li><%=percentage%> of students performed <%=status%> grade level</li>
+                <%end%>
+              </ul>
+            <%end%>
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
