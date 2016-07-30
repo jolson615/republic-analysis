@@ -28,14 +28,17 @@
       </div>
       <div class="row">
         <div class="">
-          <form action="/results" method="post">
+          <!-- <form action="/results" method="post">
             <ul class="list-unstyled col-md-10 col-md-offset-1">
-              <!-- <li><label for="questions">How many questions?</label></li>
-              <li><input type="number" name="questions"></li>
-              <li><label for="students">How many students?</label></li>
-              <li><input type="number" name="students"></li> -->
               <li><label for="data">Input raw data here:</label></li>
               <li><textarea name="data" rows="10" id="data-input"></textarea></li>
+              <li><input type="submit"></li>
+            </ul>
+          </form> -->
+          <form action="/test" method="post" enctype="multipart/form-data">
+            <ul class="list-unstyled col-md-10 col-md-offset-1">
+              <li><label for="file">Upload your assessment CSV file</label></li>
+              <li><input type="file" name="file"></li>
               <li><input type="submit"></li>
             </ul>
           </form>
