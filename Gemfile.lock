@@ -5,6 +5,8 @@ GEM
     builder (3.2.2)
     coderay (1.1.0)
     excon (0.51.0)
+    haml (4.0.7)
+      tilt
     heroku (3.43.5)
       heroku-api (= 0.4.2)
       launchy (= 2.4.3)
@@ -58,6 +60,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  haml
   heroku
   pry
   shotgun

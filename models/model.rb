@@ -1,9 +1,13 @@
 class Analysis
   attr_reader :nested_data, :row_count, :col_count, :student_count, :question_count, :standards, :advisories, :answer_key, :students, :weights_array
   def initialize(raw_data)
-    clean_data = raw_data.gsub("\"","")
-    @nested_data = clean_data.split("\r\n").collect do |row|
-      row.split("\t")
+    if raw_data.class == String
+      clean_data = raw_data.gsub("\"","")
+      @nested_data = clean_data.split("\r\n").collect do |row|
+        row.split("\t")
+      end
+    else
+      @nested_data = raw_data
     end
     @row_count = @nested_data.count
     @col_count = @nested_data[0].count
