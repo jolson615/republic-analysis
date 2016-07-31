@@ -13,5 +13,7 @@ $(document).ready(function(){
     // $('table').toggleClass('table-bordered')
     $(this).hide()
     $('#uglify').show()
+    $('#standards').tablesorter()
   });
+  // $('#standards').tablesorter();
 });

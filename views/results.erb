@@ -91,7 +91,7 @@
       </div>
       <div class="row">
         <div class="col-md-12">
-          <table class="table table-bordered table-hover">
+          <table class="table table-bordered table-hover" id="standards">
             <thead>
               <tr class="active">
                 <th class="academic-standard" width="48%">Objective</th>
@@ -101,11 +101,39 @@
               </tr>
             </thead>
             <tbody>
-              <%@processed_data.standards.each do |standard|%>
+              <%@processed_data.standards.uniq.each do |standard, i|%>
               <tr>
                 <td class="first-col"><%=standard%></td>
                 <%@processed_data.advisories.each do |advisory|%>
-                <td><%=advisory.standards_whole_number_average[standard]%></td>
+                <td><%=advisory.unique_standards_average[standard]%>%</td>
+                <%end%>
+              </tr>
+              <%end%>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- End of table 2. -->
+      <div class="row">
+          <h1 class="text-center">Performance by Question</h1>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <table class="table table-bordered table-hover" id="standards">
+            <thead>
+              <tr class="active">
+                <th class=""></th>
+                <%@processed_data.advisories.each do |advisory|%>
+                <th class="standard-by-advisory"><%=advisory.name%></th>
+                <%end%>
+              </tr>
+            </thead>
+            <tbody>
+              <%@processed_data.standards.each_with_index do |standard, i|%>
+              <tr>
+                <td class="first-col">Question <%= i + 1 %></td>
+                <%@processed_data.advisories.each do |advisory|%>
+                <td><%=advisory.questions_whole_number_average[i]%>%</td>
                 <%end%>
               </tr>
               <%end%>
@@ -125,7 +153,10 @@
             </ul>
           </p>
           <p>
-            <h4>We counted <%=@processed_data.standards.count%> standards </h4>
+            <h4>We counted <%=@processed_data.standards.count%> questions </h4>
+          </p>
+          <p>
+            <h4>We counted <%=@processed_data.standards.uniq.count%> standards </h4>
           </p>
           <p>
             <%=@processed_data.multiple_standards?%>

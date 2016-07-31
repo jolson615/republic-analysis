@@ -1,14 +1,17 @@
 class Analysis
   attr_reader :nested_data, :row_count, :col_count, :student_count, :question_count, :standards, :advisories, :answer_key, :students, :weights_array
   def initialize(raw_data)
-    if raw_data.class == String
+    # Control flow to handle CSV or Text input
+    if raw_data.class == String #text input
       clean_data = raw_data.gsub("\"","")
       @nested_data = clean_data.split("\r\n").collect do |row|
         row.split("\t")
       end
-    else
+    else #CSV input
       @nested_data = raw_data
     end
+    # Validate the myriad different advisory names.
+    clean_advisory_names
     @row_count = @nested_data.count
     @col_count = @nested_data[0].count
     @student_count = @row_count - 3
@@ -26,9 +29,18 @@ class Analysis
     sort_students_into_advisories
     compute_advisory_standard_performance
     compute_advisory_average
+    compute_advisory_unique_standard_performance
     compute_advisory_grade_level_performance
     compute_overall_averages
     identify_bubble_students
+  end
+
+  def clean_advisory_names
+    @nested_data.count.times do |i|
+      if @nested_data[i][2]
+        @nested_data[i][2] = @nested_data[i][2].gsub(" House", "").gsub("DuBois", "Du Bois")
+      end
+    end
   end
 
   def compute_overall_averages
@@ -48,7 +60,6 @@ class Analysis
   def identify_bubble_students
     @advisories.each do |advisory|
       advisory.students.each do |student|
-      ## MUST CHECK DEFINITION OF BUBBLE STUDENTS
         if student.raw_score.to_f > 58 && student.raw_score.to_f < 70
           advisory.bubble_students.push(student)
         end
@@ -79,27 +90,61 @@ class Analysis
   def compute_advisory_standard_performance
     @advisories.each do |advisory|
       @standards.each_with_index do |standard, i|
-        advisory.standards_breakdown[standard] = []
+        advisory.standards_breakdown[i] = { standard => [] }
         advisory.students.each do |student|
-          advisory.standards_breakdown[standard].push(student.score_array[i])
+          advisory.standards_breakdown[i][standard].push(student.score_array[i])
         end
       end
     end
   end
 
+
+
   def compute_advisory_average
     @advisories.each do |advisory|
-      advisory.standards_breakdown.each do |standard, standard_score_array|
+      puts advisory.name
+      advisory.standards_breakdown.each do |question_number, standard_hash|
+        standard_score_array = standard_hash.to_a[0][1]
+        standard = standard_hash.to_a[0][0]
+        puts standard_score_array.count
         sum = 0
         standard_score_array.each do |student_score|
           sum += student_score
         end
         average = sum / standard_score_array.count
-        advisory.standards_average[standard]=average
-        advisory.standards_average.each do |standard, decimal|
-          percentage = (decimal * 100.0) + 0.50
-          percentage = percentage.to_i.to_s + "%"
-          advisory.standards_whole_number_average[standard] = percentage
+        advisory.standards_average.push({ standard => average })
+      end
+      advisory.standards_average.each do |standard_hash|
+        standard = standard_hash.to_a[0][0]
+        decimal = standard_hash.to_a[0][1]
+        percentage = (decimal * 100.0) + 0.50
+        percentage = percentage.to_i
+        advisory.standards_whole_number_average[standard] = percentage
+        advisory.questions_whole_number_average.push(percentage)
+      end
+    end
+  end
+
+  def compute_advisory_unique_standard_performance
+    @advisories.each do |advisory|
+      advisory.standards_whole_number_average.each do |standard, average|
+        ## NEED AN ITERATOR TO INCLUDE WEIGHTS
+        unless advisory.unique_standards_average.keys.include?(standard)
+          advisory.unique_standards_average[standard] = []
+          advisory.unique_standards_average[standard].push(average)
+        else
+          advisory.unique_standards_average[standard].push(average)
+        end
+      end
+      advisory.unique_standards_average.each do |standard, average_array|
+        if average_array.count == 1
+          advisory.unique_standards_average[standard] = average_array[0]
+        else
+          sum = 0
+          average_array.each do |score|
+            sum += score
+          end
+          advisory.unique_standards_average[standard] = sum / average_array.count
         end
       end
     end
@@ -132,6 +177,8 @@ class Analysis
   def populate_advisories
     @advisories.push("All students")
     @nested_data.each_with_index do |row, row_number|
+      #validate advisory (slice off " House")
+      # this_advisory = row[2].gsub(" House", "")
       unless row_number < 3 || @advisories.include?(row[2])
         @advisories.push(row[2])
       end
@@ -196,18 +243,24 @@ class Student
   attr_reader :answers, :name, :advisory, :on_grade_level
   attr_accessor :raw_score, :standards_breakdown, :score_array
   @@list = []
+  @@count = 0
   def initialize(student_row, answers)#, weights_array=Analysis.weights_array)
+    @@count += 1
     @student_row = student_row
     @name = student_row[0]
     @student_id = student_row[1]
     @advisory = student_row[2]
-    @standards_breakdown = {}
+    @standards_breakdown = []
     @score_array = []
     @raw_score = student_row[3]
     @on_grade_level = student_row[4]
     @answers = answers
     @@list.push(self)
     #@weights_array = weights_array
+  end
+
+  def self.count
+    @@count
   end
 
   def validate_math
@@ -229,15 +282,17 @@ class Student
 end #end of student class
 
 class Advisory
-  attr_accessor :students, :name, :standards_breakdown, :standards_average, :standards_whole_number_average, :grade_level, :percent_grade_level, :bubble_students, :bubble_percent, :overall_average
+  attr_accessor :students, :name, :standards_breakdown, :standards_average, :standards_whole_number_average, :grade_level, :percent_grade_level, :bubble_students, :bubble_percent, :overall_average, :unique_standards_average, :questions_whole_number_average
   @@list = []
   def initialize(name)
     @name = name
     @students = []
     @standards_breakdown = {}
     @@list.push(self)
-    @standards_average = {}
+    @standards_average = []
     @standards_whole_number_average = {}
+    @questions_whole_number_average = []
+    @unique_standards_average = {}
     @grade_level = {
       :students_above => [],
       :students_at => [],
