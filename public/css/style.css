@@ -56,3 +56,32 @@ h1 {
 #testrow {
   background-color: rgba(227, 53, 39, 1);
 }
+
+#file-upload{
+
+}
+
+.centerBlock {
+  display: table;
+  margin: 0 auto;
+}
+/* THIS set of styles didn't work at all - the goal was to make it fit better in Google Docs. Did not work at all.
+.left-table-header {
+  width: 15%;
+}
+
+.other-table-header {
+  width: 17%;
+}
+
+.academic-standard {
+  width: 40%;
+}
+
+.standard-by-advisory {
+  width: 12%;
+}*/
+
+.academic-standard {
+  width: 48%;
+}

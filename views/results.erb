@@ -10,6 +10,8 @@
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="css/style.css">
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+    <script src="scripts/uglify.js"></script>
   </head>
   <body>
     <div class="container">
@@ -20,16 +22,19 @@
         <h1 class="text-center">Grade Level Performance</h1>
       </div>
       <div class="row buffer-sm">
-
+        <div class="text-center">
+          <p id="uglify">Click here to de-style</p>
+          <p id="beautify">Click here to re-style</p>
+        </div>
       </div>
       <div class="row">
         <div class="col-md-12">
           <table class="table table-bordered table-hover">
             <thead>
               <tr class="active">
-                <th>Metric</th>
+                <th class="left-table-header">Metric</th>
                 <%@processed_data.advisories.each do |advisory|%>
-                <th><%=advisory.name%></th>
+                <th class="other-table-header"><%=advisory.name%></th>
                 <%end%>
               </tr>
             </thead>
@@ -68,30 +73,37 @@
                 <td class="first-col">Names of Bubble Students</td>
                 <%@processed_data.advisories.each do |advisory|%>
                   <td>
-                    <ul class="list-unstyled">
+                    <!-- <ul class="list-unstyled"> -->
                   <%advisory.bubble_students.each do |student|%>
-                      <li><%=student.name%></li>
+                      <%=student.name%><br>
                   <%end%>
-                    </ul>
+                    <!-- </ul> -->
                   </td>
                 <%end%>
               </tr>
             </tbody>
           </table>
-          <!-- End of table 1. -->
+        </div>
+      </div>
+      <!-- End of table 1. -->
+      <div class="row">
+          <h1 class="text-center">Performance by Standard</h1>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
           <table class="table table-bordered table-hover">
             <thead>
               <tr class="active">
-                <th>Objective</th>
+                <th class="academic-standard">Objective</th>
                 <%@processed_data.advisories.each do |advisory|%>
-                <th><%=advisory.name%></th>
+                <th class="standard-by-advisory"><%=advisory.name%></th>
                 <%end%>
               </tr>
             </thead>
             <tbody>
               <%@processed_data.standards.each do |standard|%>
               <tr>
-                <td class="first-col" width="40%"><%=standard%></td>
+                <td class="first-col"><%=standard%></td>
                 <%@processed_data.advisories.each do |advisory|%>
                 <td><%=advisory.standards_whole_number_average[standard]%></td>
                 <%end%>
