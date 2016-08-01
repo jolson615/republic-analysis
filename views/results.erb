@@ -34,7 +34,7 @@
               <tr class="active">
                 <th class="left-table-header">Metric</th>
                 <%@processed_data.advisories.each do |advisory|%>
-                <th class="other-table-header"><%=advisory.name%></th>
+                <th class="other-table-header text-center"><%=advisory.name%></th>
                 <%end%>
               </tr>
             </thead>
@@ -42,37 +42,37 @@
               <tr>
                 <td class="first-col">Total Mastery</td>
                 <%@processed_data.advisories.each do |advisory|%>
-                <td><%=advisory.overall_average%>%</td>
+                <td class="text-center"><%=advisory.overall_average%>%</td>
                 <%end%>
               </tr>
               <tr>
                 <td class="first-col">% Above Grade Level</td>
                 <%@processed_data.advisories.each do |advisory|%>
-                <td><%=advisory.percent_grade_level[:above]%></td>
+                <td class="text-center"><%=advisory.percent_grade_level[:above]%></td>
                 <%end%>
               </tr>
               <tr>
                 <td class="first-col">% At Grade Level</td>
                 <%@processed_data.advisories.each do |advisory|%>
-                <td><%=advisory.percent_grade_level[:at]%></td>
+                <td class="text-center"><%=advisory.percent_grade_level[:at]%></td>
                 <%end%>
               </tr>
               <tr>
                 <td class="first-col">% Below Grade Level</td>
                 <%@processed_data.advisories.each do |advisory|%>
-                <td><%=advisory.percent_grade_level[:below]%></td>
+                <td class="text-center"><%=advisory.percent_grade_level[:below]%></td>
                 <%end%>
               </tr>
               <tr>
                 <td class="first-col">% Between 59 and 69</td>
                 <%@processed_data.advisories.each do |advisory|%>
-                <td><%=advisory.bubble_percent%> %</td>
+                <td class="text-center"><%=advisory.bubble_percent%> %</td>
                 <%end%>
               </tr>
               <tr>
                 <td class="first-col">Names of Bubble Students</td>
                 <%@processed_data.advisories.each do |advisory|%>
-                  <td>
+                  <td class="text-center">
                     <!-- <ul class="list-unstyled"> -->
                   <%advisory.bubble_students.each do |student|%>
                       <%=student.name%><br>
@@ -96,7 +96,7 @@
               <tr class="active">
                 <th class="academic-standard" width="48%">Objective</th>
                 <%@processed_data.advisories.each do |advisory|%>
-                <th class="standard-by-advisory"><%=advisory.name%></th>
+                <th class="standard-by-advisory text-center"><%=advisory.name%></th>
                 <%end%>
               </tr>
             </thead>
@@ -105,7 +105,7 @@
               <tr>
                 <td class="first-col"><%=standard%></td>
                 <%@processed_data.advisories.each do |advisory|%>
-                <td><%=advisory.unique_standards_average[standard]%>%</td>
+                <td class="text-center"><%=advisory.unique_standards_average[standard]%>%</td>
                 <%end%>
               </tr>
               <%end%>
@@ -122,9 +122,9 @@
           <table class="table table-bordered table-hover" id="standards">
             <thead>
               <tr class="active">
-                <th class=""></th>
+                <th class="">Question</th>
                 <%@processed_data.advisories.each do |advisory|%>
-                <th class="standard-by-advisory"><%=advisory.name%></th>
+                <th class="standard-by-advisory text-center"><%=advisory.name%></th>
                 <%end%>
               </tr>
             </thead>
@@ -133,7 +133,7 @@
               <tr>
                 <td class="first-col">Question <%= i + 1 %></td>
                 <%@processed_data.advisories.each do |advisory|%>
-                <td><%=advisory.questions_whole_number_average[i]%>%</td>
+                <td class="text-center"><%=advisory.questions_whole_number_average[i]%>%</td>
                 <%end%>
               </tr>
               <%end%>
