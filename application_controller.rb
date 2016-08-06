@@ -34,4 +34,8 @@ class MyApp < Sinatra::Base
     erb :results2
   end
 
+  get 'apcs' do
+    erb :apcs
+  end
+
 end

@@ -29,7 +29,7 @@ class Analysis
     populate_questions
     @students = []
     populate_students
-    # Still need to calculate scores, averages, and populate questions with data.s
+    # Still need to calculate scores, averages, and populate questions
   end
 
   def populate_students
