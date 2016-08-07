@@ -35,7 +35,6 @@ class MyApp < Sinatra::Base
   end
 
   # Goal here is to get the webapp to include authentication as a separate page, or as a step along the way.
-  # Currently frustrated - abandoning for now.
   get '/apcs' do
     erb :apcs
   end
