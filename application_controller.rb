@@ -3,7 +3,7 @@ require 'bundler'
 require 'csv'
 Bundler.require
 require_relative 'models/model.rb'
-require_relative 'models/csv-converter.rb'
+require_relative 'models/one-quiz.rb'
 
 class MyApp < Sinatra::Base
 
@@ -31,7 +31,7 @@ class MyApp < Sinatra::Base
     erb :apcs1
   end
 
-  get '/pushassessment' do
+  post '/pushassessment' do
     @raw_data = CSV.read(params[:file][:tempfile])
     add_assessment(@raw_data)
   end
