@@ -4,7 +4,7 @@ require_relative 'standard.rb'
 require_relative 'student.rb'
 
 class Analysis
-  attr_reader :nested_data, :row_count, :col_count, :student_count, :question_count, :standards, :advisories, :answer_key, :students, :weights_array
+  attr_reader :nested_data, :row_count, :col_count, :student_count, :question_count, :standards, :advisories, :answer_key, :students, :weights_array, :questions
   def initialize(raw_data)
     # Control flow to handle CSV or Text input
     if raw_data.class == String #text input
@@ -30,6 +30,34 @@ class Analysis
     @students = []
     populate_students
     # Still need to calculate scores, averages, and populate questions with data.s
+    compute_advisory_averages
+    process_student_answers
+  end
+
+  def process_student_answers
+    # log the answers
+    @students.each do |student|
+      @questions.each do |question|
+        unless question.answers_by_advisory[student.advisory]
+          question.answers_by_advisory[student.advisory] = []
+        end
+        question.answers_by_advisory[student.advisory].push(student.answers[question.number.to_i - 1])
+      end
+    end
+    # compute the answers
+    @questions.each do |question|
+      question.answers_by_advisory.each do |advisory, answers|
+        question.mastery_by_advisory[advisory] = ((answers.mean * 100).to_i.to_f)/100
+      end
+    end
+  end
+
+  def compute_advisory_averages
+    @advisories.each do |advisory|
+      advisory.compute_advisory_average
+      advisory.sort_students_by_grade_level
+      advisory.compute_bubble_percent
+    end
   end
 
   def populate_students
@@ -51,7 +79,8 @@ class Analysis
   def populate_questions
     @question_count.times do |i|
       j = i+5
-      @questions.push(Question.new(j, @nested_data[1][j], @nested_data[2][j]))
+      @questions.push(Question.new(i+1, @nested_data[1][j], @nested_data[2][j]))
+      puts @questions[i].number
     end
   end
 
@@ -69,5 +98,28 @@ class Analysis
       @advisory_list.push(Advisory.new(advisory))
     end
     @advisories = @advisory_list
+    @advisories.each do |advisory|
+      @standards.each do |standard|
+        advisory.standards_hash[standard] = []
+      end
+    end
+  end
+
+  def clean_advisory_names
+    @nested_data.count.times do |i|
+      if @nested_data[i][2]
+        @nested_data[i][2] = @nested_data[i][2].gsub(" House", "").gsub("DuBois", "Du Bois")
+      end
+    end
+  end
+end
+
+class Array #adds an averaging method for the Array class
+  def sum
+    inject(0.0) { |result, el| result.to_f + el.to_f }
+  end
+
+  def mean
+    sum / size
   end
 end

@@ -2,7 +2,7 @@ require 'bundler'
 # require 'haml'
 require 'csv'
 Bundler.require
-require_relative 'models/model.rb'
+# require_relative 'models/model.rb'
 require_relative 'models/model2.rb'
 require_relative 'models/csv-converter.rb'
 
@@ -31,7 +31,10 @@ class MyApp < Sinatra::Base
   post '/refactor' do
     @raw_data = CSV.read(params[:file][:tempfile])
     @processed_data = Analysis.new(@raw_data)
-    erb :results2
+    # @processed_data.advisories.each do |advisory|
+    #   puts advisory.name
+    # end
+    erb :results
   end
 
 end

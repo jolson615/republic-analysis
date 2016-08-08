@@ -101,11 +101,11 @@
               </tr>
             </thead>
             <tbody>
-              <%@processed_data.standards.uniq.each do |standard, i|%>
+              <%@processed_data.standards.each do |standard, i|%>
               <tr>
-                <td class="first-col"><%=standard%></td>
+                <td class="first-col"><%=standard.text%></td>
                 <%@processed_data.advisories.each do |advisory|%>
-                <td class="text-center"><%=advisory.unique_standards_average[standard]%>%</td>
+                <td class="text-center">????<%=%>%</td>
                 <%end%>
               </tr>
               <%end%>
@@ -129,11 +129,11 @@
               </tr>
             </thead>
             <tbody>
-              <%@processed_data.standards.each_with_index do |standard, i|%>
+              <%@processed_data.questions.each do |question|%>
               <tr>
-                <td class="first-col">Question <%= i + 1 %></td>
-                <%@processed_data.advisories.each do |advisory|%>
-                <td class="text-center"><%=advisory.questions_whole_number_average[i]%>%</td>
+                <td class="first-col">Question <%=question.number%></td>
+                <%question.mastery_by_advisory.each do |advisory, average|%>
+                <td class="text-center"><%=average * 100%>%</td>
                 <%end%>
               </tr>
               <%end%>
@@ -153,13 +153,10 @@
             </ul>
           </p>
           <p>
-            <h4>We counted <%=@processed_data.standards.count%> questions </h4>
+            <h4>We counted <%=@processed_data.questions.count%> questions </h4>
           </p>
           <p>
-            <h4>We counted <%=@processed_data.standards.uniq.count%> standards </h4>
-          </p>
-          <p>
-            <%=@processed_data.multiple_standards?%>
+            <h4>We counted <%=@processed_data.standards.count%> standards </h4>
           </p>
           <p id=disclaimer>
             If any of the above data seems incorrect, return to the landing page and try again. If the information still doesn't match up, email JOlson@republiccharterschools.org. If possible, attach the data you're working with and include a screenshot of the erroneous results.

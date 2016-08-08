@@ -7,7 +7,7 @@ class Student
     @name = student_row.shift
     @student_id = student_row.shift
     @advisory = student_row.shift
-    @raw_score = student_row.shift
+    @raw_score = student_row.shift.to_f
     @on_grade_level = student_row.shift
     @answers = student_row
     @@list.push(self)

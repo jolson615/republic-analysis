@@ -1,13 +1,14 @@
 class Standard
-  attr_accessor :text
+  attr_accessor :text, :questions
   @@list = []
   def initialize(text)
     @@list.push(self)
     @text = text
+    @questions = []
   end
 
   def self.list
-     @@list
+    @@list
   end
 
 end
