@@ -21,12 +21,6 @@ class MyApp < Sinatra::Base
     erb :results
   end
 
-  # post '/test' do
-  #   @raw_data = CSV.read(params[:file][:tempfile])
-  #   @processed_data = Analysis.new(@raw_data)
-  #   erb :results
-  # end
-  #
   # post '/refactor' do
   #   @raw_data = CSV.read(params[:file][:tempfile])
   #   @processed_data = Analysis.new(@raw_data)
