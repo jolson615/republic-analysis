@@ -12,9 +12,9 @@ class MyApp < Sinatra::Base
   end
 
   post '/results' do
-    print params[:data]
-    @processed_data = Analysis.new(params[:data])
-    erb :results
+      @raw_data = CSV.read(params[:file][:tempfile])
+      @processed_data = Analysis.new(@raw_data)
+      erb :results
   end
 
   get '/results' do
