@@ -3,7 +3,7 @@ require 'bundler'
 require 'csv'
 Bundler.require
 require_relative 'models/model.rb'
-require_relative 'models/model2.rb'
+# require_relative 'models/model2.rb'
 
 
 class MyApp < Sinatra::Base
