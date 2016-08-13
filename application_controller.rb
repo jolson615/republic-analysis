@@ -41,4 +41,16 @@ class MyApp < Sinatra::Base
     erb :quizcheck
   end
 
+  get '/apcs' do
+    erb :apcs
+  end
+
+  post '/quizcheck'do
+    require_relative 'models/cs-quiz.rb'
+    @metadata = get_metadata
+    @raw_data = CSV.read(params[:file][:tempfile])
+    push_assessment(@raw_data)
+    erb :quizcheck
+  end
+
 end
