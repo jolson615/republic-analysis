@@ -60,9 +60,8 @@ class MyApp < Sinatra::Base
 
   get '/apcsresults' do
     require_relative 'models/apcsresults.rb'
-    @item_list = temporary_fetch
-    @standard_list = list_standards
-    @student_list = list_students
+    item_list = temporary_fetch
+    @results = IndividualResults.new(item_list)
     erb :apcsresults
   end
 
