@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Results</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+    <script src="scripts/uglify.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row buffer-md">
+
+      </div>
+      <div class="row">
+        <h1 class="text-center">Standard Performance Over Time</h1>
+      </div>
+      <div class="row buffer-sm">
+        <div class="text-center">
+          <p id="uglify">Click here to de-style</p>
+          <p id="beautify">Click here to re-style</p>
+        </div>
+      </div>
+      <div class="row">
+        <!-- It occurs to me now that this is TERRIBLE code, and I see a much better way to write it. FINALLY. Damn. Okay. Got it. -->
+        <%@standard_list.each do |standard_text| %>
+          <h1><%= standard_text %></h1>
+          <table table class="table table-bordered table-hover">
+            <tr>
+              <th>
+                Student
+              </th>
+              <th>
+                Mastery
+              </th>
+            </tr>
+
+            <%@student_list.each do |student_email|%>
+              </tr>
+                <td>
+                  <%=student_email%>
+                </td>
+                <td>
+                  <%avg = []%>
+                  <%@item_list.each do |item|%>
+                    <%if item.standard == standard_text && item.student_email == student_email%>
+                      <%avg.push(item.score)%>
+                    <%end%>
+                  <%end%>
+                  <%avg = (avg.mean) * 100%>
+                  <%=avg.to_s + "%"%>
+                </td>
+              </tr>
+            <%end%>
+          </table>
+        <%end%>
+      </div>
+      <div class="row">
+        <div class="col-md-8 col-md-offset-2" id="validator-box">
+          <h3 class="text-center">Use the following data to ensure accuracy</h3>
+
+          <p id=disclaimer>
+            If any of the above data seems incorrect, return to the landing page and try again. If the information still doesn't match up, email JOlson@republiccharterschools.org. If possible, attach the data you're working with and include a screenshot of the erroneous results.
+          </p>
+        </div>
+      </div>
+      <div class="row buffer-sm">
+
+      </div>
+      <div class="row">
+        <footer class="text-center" id="footer">
+          Created by Jeff Olson for RePublic Schools, July 2016.
+        </footer>
+      </div>
+      <div class="row buffer-sm">
+
+      </div>
+    </div>
+  </body>
+</html>
