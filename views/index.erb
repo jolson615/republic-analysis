@@ -38,7 +38,7 @@
             </ul>
           </form> -->
           <form action="/results" method="post" enctype="multipart/form-data">
-            <ul class="list-unstyled col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4">
+            <ul class="list-unstyled col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3">
               <li class=""><label for="file">Upload your assessment CSV file</label></li>
               <br>
               <li><input type="file" name="file" class=""></li>
@@ -48,6 +48,17 @@
             </ul>
           </form>
         </div>
+      </div>
+      <div class="row buffer-sm">
+
+      </div>
+      <div class="row">
+
+        <ul class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3">
+          <h4>Known bugs, 9/25/16:</h4>
+          <li>Non UTF-8 special characters (usually umlauts or accents) in a student's name will return an internal server error. If you get an internal server error, open the CSV and edit any student's name that appears wildly incorrect. Working on a more permanent fix.</li>
+          <li>Multiple questions on the same standard seem to be rendering incorrect results in the "performance by standard" table about 1 in 10 times. If you find this, please screenshot it and send it with the csv to jolson@republiccharterschools.org.</li>
+        </ul>
       </div>
       <div class="row buffer-sm">
 
