@@ -15,7 +15,7 @@ class Analysis
     @row_count = @nested_data.count
     @col_count = @nested_data[0].count
     @student_count = @row_count - 3
-    @question_count = @col_count - 5
+    @question_count = @col_count - 6
     @standards = []
     populate_standards
     @advisories = []
@@ -163,14 +163,14 @@ class Analysis
 
   def populate_answers
     @question_count.times do |i|
-      @answer_key.push(@nested_data[2][i+5])
+      @answer_key.push(@nested_data[2][i+6])
       i += 1
     end
   end
 
   def populate_standards
     @question_count.times do |i|
-      @standards << @nested_data[1][i+5]
+      @standards << @nested_data[1][i+6]
     end
   end
 
@@ -216,7 +216,7 @@ class Analysis
       row = @nested_data[i+3]
       answers = []
       @question_count.times do |j|
-        answers.push(@nested_data[i+3][j+5])
+        answers.push(@nested_data[i+3][j+6])
       end
       student = Student.new(row, answers)
       check_answers(student)
@@ -250,10 +250,11 @@ class Student
     @name = student_row[0]
     @student_id = student_row[1]
     @advisory = student_row[2]
+    @section = student_row[3]
     @standards_breakdown = []
     @score_array = []
-    @raw_score = student_row[3]
-    @on_grade_level = student_row[4]
+    @raw_score = student_row[4]
+    @on_grade_level = student_row[5]
     @answers = answers
     @@list.push(self)
     #@weights_array = weights_array
