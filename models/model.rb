@@ -163,7 +163,8 @@ class Analysis
 
   def populate_answers
     @question_count.times do |i|
-      @answer_key.push(@nested_data[2][i+6])
+      @answer_key.push(@nested_data[2][i+6].upcase) 
+      # This zero may be super wrong.
       i += 1
     end
   end
@@ -192,7 +193,7 @@ class Analysis
 
   def check_answers(student)
     @question_count.times do |i|
-      if @answer_key[i] == student.answers[i]
+      if @answer_key[i] == student.answers[i].upcase
         score = 1.0
       elsif student.answers[i].to_i > 0
         score = student.answers[i].to_f / @answer_key[i].to_f
