@@ -12,10 +12,7 @@ class MyApp < Sinatra::Base
   end
 
   post '/results' do
-      puts "working step 1"
       @raw_data = CSV.read(params[:file][:tempfile])
-      puts "working step 2"
-      puts @raw_data
       @processed_data = Analysis.new(@raw_data)
       erb :results
   end

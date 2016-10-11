@@ -163,7 +163,7 @@ class Analysis
 
   def populate_answers
     @question_count.times do |i|
-      @answer_key.push(@nested_data[2][i+6].upcase) 
+      @answer_key.push(@nested_data[2][i+6].upcase)
       # This zero may be super wrong.
       i += 1
     end
@@ -256,9 +256,18 @@ class Student
     @score_array = []
     @raw_score = student_row[4]
     @on_grade_level = student_row[5]
-    @answers = answers
+    @answers = []
+    answers.each do |answer|
+      if answer
+        @answers.push(answer)
+      else
+        @answers.push("0")
+      end
+    end  
     @@list.push(self)
     #@weights_array = weights_array
+    puts @answers
+    puts @answers.count
   end
 
   def self.count
