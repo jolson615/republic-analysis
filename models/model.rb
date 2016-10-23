@@ -114,39 +114,51 @@ class Analysis
         average = sum / standard_score_array.count
         advisory.standards_average.push({ standard => average })
       end
+      puts advisory.standards_average
       advisory.standards_average.each do |standard_hash|
         standard = standard_hash.to_a[0][0]
         decimal = standard_hash.to_a[0][1]
         percentage = (decimal * 100.0) + 0.50
         percentage = percentage.to_i
-        advisory.standards_whole_number_average[standard] = percentage
+        unless advisory.standards_whole_number_average.keys.include?(standard)
+          advisory.standards_whole_number_average[standard] = []
+        end
+        advisory.standards_whole_number_average[standard].push(percentage)
         advisory.questions_whole_number_average.push(percentage)
+        puts "#{advisory.name} scored #{advisory.standards_whole_number_average[standard]} on #{standard}."
       end
     end
   end
 
   def compute_advisory_unique_standard_performance
     @advisories.each do |advisory|
-      advisory.standards_whole_number_average.each do |standard, average|
+      puts puts "#{advisory.name} has #{advisory.standards_whole_number_average}."
+      advisory.standards_whole_number_average.each do |standard, average_array|
         ## NEED AN ITERATOR TO INCLUDE WEIGHTS
-        unless advisory.unique_standards_average.keys.include?(standard)
-          advisory.unique_standards_average[standard] = []
-          advisory.unique_standards_average[standard].push(average)
-        else
-          advisory.unique_standards_average[standard].push(average)
-        end
+        average = average_array.inject{ |sum, el| sum + el }.to_f / average_array.size
+        average = (average * 10).to_i.to_f
+        average = (average/10)
+        advisory.unique_standards_average[standard] = average
+        # unless advisory.unique_standards_average.keys.include?(standard)
+        #   advisory.unique_standards_average[standard] = []
+        #   puts "Created new standard for #{advisory.name}: #{standard}"
+        # end
+        # advisory.unique_standards_average[standard].push(average)
+        # puts advisory.unique_standards_average[standard]
+        # puts advisory.unique_standards_average[standard].count
+        # puts advisory.unique_standards_average[standard].class
       end
-      advisory.unique_standards_average.each do |standard, average_array|
-        if average_array.count == 1
-          advisory.unique_standards_average[standard] = average_array[0]
-        else
-          sum = 0
-          average_array.each do |score|
-            sum += score
-          end
-          advisory.unique_standards_average[standard] = sum / average_array.count
-        end
-      end
+      # advisory.unique_standards_average.each do |standard, average_array|
+      #   if average_array.count == 1
+      #     advisory.unique_standards_average[standard] = average_array[0]
+      #   else
+      #     sum = 0
+      #     average_array.each do |score|
+      #       sum += score
+      #     end
+      #     advisory.unique_standards_average[standard] = sum / average_array.count
+      #   end
+      # end
     end
   end
 
@@ -263,7 +275,7 @@ class Student
       else
         @answers.push("0")
       end
-    end  
+    end
     @@list.push(self)
     #@weights_array = weights_array
     puts @answers
