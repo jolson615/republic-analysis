@@ -71,12 +71,12 @@ class Analysis
   def compute_advisory_grade_level_performance
     @advisories.each do |advisory|
       advisory.students.each do |student|
-        if student.on_grade_level.downcase == "at grade level"
-          advisory.grade_level[:students_at].push(student)
-        elsif student.on_grade_level.downcase == "above grade level"
-          advisory.grade_level[:students_above].push(student)
-        elsif student.on_grade_level.downcase == "below grade level"
+        if student.raw_score.to_i < 66
           advisory.grade_level[:students_below].push(student)
+        elsif student.raw_score.to_i > 89
+          advisory.grade_level[:students_above].push(student)
+        elsif student.raw_score.to_i >= 66 && student.raw_score.to_i <= 89
+          advisory.grade_level[:students_at].push(student)
         else
           puts "Error: #{student.name} did not have a grade level indication."
         end
@@ -263,11 +263,10 @@ class Student
     @name = student_row[0]
     @student_id = student_row[1]
     @advisory = student_row[2]
-    @section = student_row[3]
     @standards_breakdown = []
     @score_array = []
-    @raw_score = student_row[4]
-    @on_grade_level = student_row[5]
+    @raw_score = student_row[3]
+    @on_grade_level = student_row[4]
     @answers = []
     answers.each do |answer|
       if answer
