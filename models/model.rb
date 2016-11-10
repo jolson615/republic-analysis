@@ -265,8 +265,7 @@ class Student
     @advisory = student_row[2]
     @standards_breakdown = []
     @score_array = []
-    @raw_score = student_row[3]
-    @on_grade_level = student_row[4]
+    student_row[3].to_i > 0 ? @raw_score = student_row[3] : @raw_score = student_row[4]
     @answers = []
     answers.each do |answer|
       if answer
