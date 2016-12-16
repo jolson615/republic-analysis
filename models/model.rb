@@ -192,8 +192,8 @@ class Analysis
     @nested_data.each_with_index do |row, row_number|
       #validate advisory (slice off " House")
       # this_advisory = row[2].gsub(" House", "")
-      unless row_number < 3 || @advisories.include?(row[2])
-        @advisories.push(row[2])
+      unless row_number < 3 || @advisories.include?(row[3])
+        @advisories.push(row[3])
       end
     end
     @advisory_list = []
@@ -262,7 +262,7 @@ class Student
     @student_row = student_row
     @name = student_row[0]
     @student_id = student_row[1]
-    @advisory = student_row[2]
+    @advisory = student_row[3]
     @standards_breakdown = []
     @score_array = []
     student_row[3].to_i > 0 ? @raw_score = student_row[3] : @raw_score = student_row[4]
